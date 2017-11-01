@@ -1,96 +1,30 @@
 <html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#btn1").click(function(){
+        $("#test1").text(function(i, origText){
+            return "Old text:  New text: Hello world! (index: " + i + ")"; 
+        });
+    });
 
-<style>
-body {
-	background-image: url(logo.jpg); 
-	background-color: grey;
-	background-size: 10%;
-    vertical-align: top; 
-}
-#title {
-    border-radius: 25px;
-	background: #FFFFFF;
-    padding: 20px; 
-    width: 500px;
-    height: 50px;    
-}
+    $("#btn2").click(function(){
+        $("#test2").html(function(i, origText){
+            return "Old html: " + origText + " New html: Hello <b>world!</b> (index: " + i + ")"; 
+        });
+    });
+});
+</script>
+</head>
+<title>projects</title>
+<body>
 
-#project {
-    border-radius: 25px;
-	background: #FFFFFF;
-    padding: 20px; 
-    width: 200px;
-    height: 180px;    
-}
+<p id="test1">This is a <b>bold</b> paragraph.</p>
+<p id="test2">This is another <b>bold</b> paragraph.</p>
 
-</style>
-<body><br><br><br><br><br>
-<center>
-<p id="title">
-<font size=5px>Hello, friend.<br> Here you can find list of community projects.</font>
-</p>
-
-<table border=0>
-	<tr>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-		<td>
-			<p id="project">
-			<b>Project: project1</b><br>
-			<b>Status:</b> work in progress<br>
-			<b>Desc:</b> Short description here up to 140 charactersShort description here up to 140 charactersShort description here up to 140 charaww dsajfklsf fds<br>
-			<b>Help required:</b> Yes<br>
-			<b>Last update:</b>01011970<br>
-			</p>
-		</td>
-	</tr>
-</table>
-</center>
+<button id="btn1">Show Old/New Text</button>
+<button id="btn2">Show Old/New HTML</button>
 
 </body>
 </html>
