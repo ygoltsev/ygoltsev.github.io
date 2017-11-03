@@ -4,7 +4,7 @@
   "projectShortDescription": "Short description here up to 140 characters",
   "projectDescription": "meterpreter which uses DNS as a channel",
   "projectContacts": {
-	"web site" : "http://local.domain",
+	"webSite" : "http://local.domain",
 	"github" : "/projectname",
 	"telegram" : "telegramGroup",
 	"email" : "username@local.domain",
