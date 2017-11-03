@@ -1,30 +1,53 @@
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("#btn1").click(function(){
-        $("#test1").text(function(i, origText){
-            return "Old text:  New text: Hello world! (index: " + i + ")"; 
-        });
-    });
+<style> 
 
-    $("#btn2").click(function(){
-        $("#test2").html(function(i, origText){
-            return "Old html: " + origText + " New html: Hello <b>world!</b> (index: " + i + ")"; 
-        });
-    });
-});
-</script>
+#project {
+    border-radius: 25px;
+	background: white;
+    border: 2px solid grey;
+    padding: 20px; 
+    width: 800px;
+    height: 100px;    
+}
+
+</style>
 </head>
 <title>projects</title>
-<body>
+<body bgcolor=white>
+<br><br><br><br>
 
-<p id="test1">This is a <b>bold</b> paragraph.</p>
-<p id="test2">This is another <b>bold</b> paragraph.</p>
-
-<button id="btn1">Show Old/New Text</button>
-<button id="btn2">Show Old/New HTML</button>
+<center>
+	<a href="/projects/">projects</a>
+	<a href="/projects/ideas">ideas</a>
+	<a href="/projects/about">about</a>
+	<p id="project">
+		<table align="left">
+			<tr>
+				<td width="70%"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></td><td width="30%"><b>Status: </b>In progress</td>
+			</tr>
+			<tr>
+				<td width="70%"><b>Description: </b>he width attribute specifies the width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell.</td><td width="30%"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
+			</tr>
+			<tr>
+				<td width="70%"><b>Tags: </b>meterpreter, dns, exfiltration</td>
+			</tr>
+		</table>
+	</p>
+	<p id="project">
+		<table align="left">
+			<tr>
+				<td width="70%"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></td><td width="30%"><b>Status: </b>In progress</td>
+			</tr>
+			<tr>
+				<td width="70%"><b>Description: </b>he width attribute specifies the width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell. a cell. a cell. a cell.</td><td width="30%"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
+			</tr>
+			<tr>
+				<td width="70%"><b>Tags: </b>meterpreter, dns, exfiltration</td>
+			</tr>
+		</table>
+	</p>
+</center>
 
 </body>
 </html>

@@ -13,6 +13,7 @@
   "projectMembers": {
 	"@username" : {
 	  "contacts": {
+		"web site" : "http://local.domain",
 		"github" : "",
 		"telegram" : "",
 		"email" : "username@local.domain",
@@ -21,13 +22,14 @@
 	},
 	"@friend" : {
 	  "contacts": {
+		"web site" : "",
 		"github" : "",
 		"telegram" : "",
 		"email" : "",
 		"twitter" : "@friend",
 	  }
 	}
-  },
+  }
   "projectSlogan": "In DNS exfiltration we trust",
   "projectLogo": "http://localhost/dnslog.png",
   "whoIsNeeded": {
