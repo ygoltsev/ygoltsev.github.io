@@ -1,41 +1,41 @@
 {
-  "projectName": "meterpreter thru DNS",
-  "projectStatus": "work ongoing",
-  "projectShortDescription": "Short description here up to 140 characters",
-  "projectDescription": "meterpreter which uses DNS as a channel",
-  "projectContacts": {
-	"webSite" : "http://local.domain",
-	"github" : "/projectname",
-	"telegram" : "telegramGroup",
-	"email" : "username@local.domain",
-	"twitter" : "@username",
-  },
-  "projectMembers": {
-	"@username" : {
-	  "contacts": {
-		"github" : "",
-		"telegram" : "",
-		"email" : "username@local.domain",
-		"twitter" : "@username",
-	  }
+	"projectName": "meterpreter thru DNS",
+	"projectStatus": "work ongoing",
+	"projectShortDescription": "Short description here up to 140 characters",
+	"projectDescription": "meterpreter which uses DNS as a channel",
+	"projectContacts": {
+		"webSite": "http://local.domain",
+		"github": "/projectname",
+		"telegram": "telegramGroup",
+		"email": "username@local.domain",
+		"twitter": "@username"
 	},
-	"@friend" : {
-	  "contacts": {
-		"github" : "",
-		"telegram" : "",
-		"email" : "",
-		"twitter" : "@friend",
-	  }
-	}
-  },
-  "projectSlogan": "In DNS exfiltration we trust",
-  "projectLogo": "http://localhost/dnslog.png",
-  "whoIsNeeded": {
-    "Programmer": "Someone who can code C/C++",
-    "Hacker": "someone who can"
-  },
-  "projectTags": [
-	"dns",
-	"exfiltration"
-  ]
+	"projectMembers": {
+		"@username": {
+			"contacts": {
+				"github": "",
+				"telegram": "",
+				"email": "username@local.domain",
+				"twitter": "@username"
+			}
+		},
+		"@friend": {
+			"contacts": {
+				"github": "",
+				"telegram": "",
+				"email": "",
+				"twitter": "@friend"
+			}
+		}
+	},
+	"projectSlogan": "In DNS exfiltration we trust",
+	"projectLogo": "http://localhost/dnslog.png",
+	"whoIsNeeded": {
+		"Programmer": "Someone who can code C/C++",
+		"Hacker": "someone who can"
+	},
+	"projectTags": [
+		"dns",
+		"exfiltration"
+	]
 }
