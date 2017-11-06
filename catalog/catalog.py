@@ -11,7 +11,7 @@ import json
 import hashlib
 
 def usage():
-	print "-p : link to projects.json file\n-u : link /projects/ folder"
+	print "-p : link to projects.json file\n-u : link /projects/ folder\n-g : group name"
 
 def getJson(url):
     response = urlopen(url)
@@ -21,7 +21,7 @@ def getJson(url):
 
 	
 try:
-	opts, args = getopt.getopt(sys.argv[1:], ":p:u:")
+	opts, args = getopt.getopt(sys.argv[1:], ":p:u:g:")
 except getopt.GetoptError as err:
 	print str(err)
 	usage()
@@ -32,7 +32,8 @@ for opt,val in opts:
 		projectsJson = val
 	elif opt in ('-u'):
 		pathToCatalog = val
-
+	elif opt in ('-g'):
+		groupName = val
 try:
 	if projectsJson and pathToCatalog:
 		jsonData = getJson(projectsJson)
@@ -44,34 +45,35 @@ except:
 pageHeader = '''
 <html>
 <head>
-<style> 
-
-#project {
-    border-radius: 25px;
-	background: white;
-    border: 2px solid grey;
-    padding: 20px; 
-    width: 800px;
-    height: HEIGHT_HEREpx;    
-}
-
-</style>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+   
+    <link href="jumbotron-narrow.css" rel="stylesheet">
 </head>
 <title>TITLE_HERE</title>
-<body bgcolor=white>
 <br><br><br><br>
 
-<center>
+<div class="container" role="main">
+	<div class="page-header" align=right>
+	  <small>'''+groupName+'''</small>
+	</div>
 '''
 
 pageLinks = '''
-	<a href="'''+pathToCatalog+'''/">projects</a>
-	<a href="'''+pathToCatalog+'''/ideas">ideas</a>
-	<a href="'''+pathToCatalog+'''/about">about</a>
+	<ul class="nav nav-pills nav-justified"">
+		<li role="presentation" class="active"><a href="/projects/">projects</a></li>
+		<li role="presentation"><a href="/projects/ideas/">ideas</a></li>
+		<li role="presentation"><a href="/projects/submit/">submit</a></li>
+		<li role="presentation"><a href="/projects/about">about</a></li>
+	</ul>
+
+	<br>
 '''
 
 pageFooter = '''
-</center>
+</div>
 </body>
 </html>
 '''	
@@ -92,22 +94,26 @@ def buildProjectsPage(data):
 	page = ''
 	for i,k in enumerate(data):
 		page = page + '''
-		<p id="project">
-			<table align="left">
+		<div class="panel panel-default">
+			<div class="panel-heading"><b>Project: </b><a href="'''+pathToCatalog+'''/'''+str(k)+'''/" title="View project page">'''+data[k]['projectName']+'''</a></div>
+
+			<table class="table">
 				<tr>
-					<td width="70%"><b>Project: </b><a href="'''+pathToCatalog+'''/'''+str(k)+'''/" title="View project page">'''+data[k]['projectName']+'''</a></td><td width="30%"><b>Status: </b>'''+data[k]['projectStatus']+'''</td>
+					<td width="90%"><b>Description: </b>'''+data[k]['projectShortDescription']+'''</td><td width="10%"><img src="'''+data[k]['projectLogo']+'''" width="55px" height="55px"></img>
 				</tr>
 				<tr>
-					<td width="70%"><b>Description: </b>'''+data[k]['projectShortDescription']+'''</td><td width="30%"><img src="'''+data[k]['projectLogo']+'''" width="55px" height="55px"></img></td>
+					<td><b>Status: </b>'''+data[k]['projectStatus']+'''</td>
 				</tr>
+
 				<tr>
-					<td width="70%"><b>Tags: </b>'''+', '.join(data[k]['projectTags'])+'''</td>
+					<td><b>Tags: </b>'''+', '.join(data[k]['projectTags'])+'''</td>
 				</tr>
 			</table>
-		</p>
+		</div>	
+
 		'''
-	pageHeaderP = pageHeader.replace('HEIGHT_HERE','100')
-	pageHeaderP = pageHeaderP.replace('TITLE_HERE','projects')
+
+	pageHeaderP = pageHeader.replace('TITLE_HERE','projects')
 	page = pageHeaderP + pageLinks + page + pageFooter
 	return page
 
@@ -131,5 +137,6 @@ for i, k in enumerate(jsonData):
 print '[+] Done'
 print '[~] Generating projects index page'
 projectsIndexHtml = buildProjectsPage(projectsPage)
+print projectsIndexHtml
 print '[+] Done'
 
