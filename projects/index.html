@@ -1,53 +1,63 @@
 <html>
 <head>
-<style> 
-
-#project {
-    border-radius: 25px;
-	background: white;
-    border: 2px solid grey;
-    padding: 20px; 
-    width: 800px;
-    height: 100px;    
-}
-
-</style>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+   
+    <link href="jumbotron-narrow.css" rel="stylesheet">
 </head>
 <title>projects</title>
-<body bgcolor=white>
 <br><br><br><br>
 
-<center>
-	<a href="/projects/">projects</a>
-	<a href="/projects/ideas">ideas</a>
-	<a href="/projects/about">about</a>
-	<p id="project">
-		<table align="left">
-			<tr>
-				<td width="70%"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></td><td width="30%"><b>Status: </b>In progress</td>
-			</tr>
-			<tr>
-				<td width="70%"><b>Description: </b>he width attribute specifies the width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell.</td><td width="30%"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
-			</tr>
-			<tr>
-				<td width="70%"><b>Tags: </b>meterpreter, dns, exfiltration</td>
-			</tr>
-		</table>
-	</p>
-	<p id="project">
-		<table align="left">
-			<tr>
-				<td width="70%"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></td><td width="30%"><b>Status: </b>In progress</td>
-			</tr>
-			<tr>
-				<td width="70%"><b>Description: </b>he width attribute specifies the width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell. a cell. a cell. a cell.</td><td width="30%"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
-			</tr>
-			<tr>
-				<td width="70%"><b>Tags: </b>meterpreter, dns, exfiltration</td>
-			</tr>
-		</table>
-	</p>
-</center>
+<div class="container" role="main">
+	<div class="page-header" align=right>
+	  <small>dc7812</small>
+	</div>
 
+	<ul class="nav nav-pills nav-justified"">
+		<li role="presentation" class="active"><a href="/projects/">projects</a></li>
+		<li role="presentation"><a href="/projects/ideas/">ideas</a></li>
+		<li role="presentation"><a href="/projects/submit/">submit</a></li>
+		<li role="presentation"><a href="/projects/about">about</a></li>
+	</ul>
+
+	<br>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></div>
+
+		<table class="table">
+			<tr>
+				<td width="90%"><b>Description: </b>he width attribute specifies the width of a table cell. width of a table cell. width of a table cell. width of a table cell. width of a table cell. width of a table cell. width of a table cell. width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell.</td><td width="10%" align="right"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
+			</tr>
+			<tr>
+				<td><b>Status: </b>In progress</td>
+			</tr>
+
+			<tr>
+				<td><b>Tags: </b>meterpreter, dns, exfiltration</td>
+			</tr>
+		</table>
+	</div>	
+	  
+	<div class="panel panel-default">
+		<div class="panel-heading"><b>Project: </b><a href="/projects/#project_name#" title="View project page">Meterpreter</a></div>
+
+		<table class="table">
+			<tr>
+				<td width="90%"><b>Description: </b>he width attribute specifies the width of a table cell. Normally, a cell takes up the space it needs to display the content. The width attribute is used to set a predefined width of a cell. a cell. a cell. a cell.</td><td width="10%" align="right"><img src="meterpreter/meterpreter.png" width="55px" height="55px"></img></td>
+			</tr>
+			<tr>
+				<td><b>Status: </b>In progress</td>
+			</tr>
+
+			<tr>
+				<td><b>Tags: </b>meterpreter, dns, exfiltration</td>
+			</tr>
+		</table>
+	</div>	
+
+</div>
 </body>
 </html>
