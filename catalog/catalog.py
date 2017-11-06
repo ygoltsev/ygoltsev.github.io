@@ -18,8 +18,6 @@ def getJson(url):
     data = str(response.read())
     return json.loads(data)
 
-
-	
 try:
 	opts, args = getopt.getopt(sys.argv[1:], ":p:u:g:")
 except getopt.GetoptError as err:
@@ -41,6 +39,10 @@ try:
 except:
 	usage()
 	sys.exit(2)
+
+projVars = ['projectName','projectStatus', 'projectShortDescription', 'projectDescription', 'projectContacts','projectMembers','projectSlogan', 'projectLogo', 'whoIsNeeded', 'projectTags']
+projVarsContacts = ['www','github', 'telegram', 'email', 'twitter']
+projVarsMembers = ['github','telegram','email','twitter']
 	
 pageHeader = '''
 <html>
@@ -63,10 +65,10 @@ pageHeader = '''
 
 pageLinks = '''
 	<ul class="nav nav-pills nav-justified"">
-		<li role="presentation" class="active"><a href="/projects/">projects</a></li>
-		<li role="presentation"><a href="/projects/ideas/">ideas</a></li>
-		<li role="presentation"><a href="/projects/submit/">submit</a></li>
-		<li role="presentation"><a href="/projects/about">about</a></li>
+		<li role="presentation" PROJECTS_IS_ACTIVE><a href="/projects/">projects</a></li>
+		<li role="presentation" IDEAS_IS_ACTIVE><a href="/projects/ideas/">ideas</a></li>
+		<li role="presentation" SUBMIT_IS_ACTIVE><a href="/projects/submit/">submit</a></li>
+		<li role="presentation" ABOUT_IS_ACTIVE><a href="/projects/about">about</a></li>
 	</ul>
 
 	<br>
@@ -80,14 +82,31 @@ pageFooter = '''
 
 def processProjectJson(pUrl):
 	projectData = getJson(pUrl)
-	projVars = ['projectName','projectStatus', 'projectShortDescription', 'projectDescription', 'projectContacts','projectMembers','projectSlogan', 'projectLogo', 'whoIsNeeded', 'projectTags']
 
 	for pVar in projVars:
 		try:
 			projectData[pVar] = projectData[pVar]
 		except:
-			projectData[pVar] = ''
+			if pVar == 'projectContacts' or pVar== 'projectMembers':
+				projectData[pVar] = []
+			else:
+				projectData[pVar] = ''
 	
+	for pVar in projVarsContacts:
+		try:
+			projectData['projectContacts'][pVar] = projectData['projectContacts'][pVar]
+		except:
+			projectData['projectContacts'][pVar] = ''
+
+	
+	for pVar in projectData['projectMembers']:
+		for vVal in projVarsMembers:
+			try:
+				projectData['projectMembers'][pVar][vVal] = projectData['projectMembers'][pVar][vVal]
+			except:
+				projectData['projectMembers'][pVar][vVal] = ''
+			
+			
 	return projectData
 
 def buildProjectsPage(data):
@@ -114,12 +133,114 @@ def buildProjectsPage(data):
 		'''
 
 	pageHeaderP = pageHeader.replace('TITLE_HERE','projects')
+	pageHeaderP = pageHeaderP.replace('PROJECTS_IS_ACTIVE','class="active"')
+	pageHeaderP = pageHeaderP.replace('IDEAS_IS_ACTIVE','')
+	pageHeaderP = pageHeaderP.replace('SUBMIT_IS_ACTIVE','')
+	pageHeaderP = pageHeaderP.replace('ABOUT_IS_ACTIVE','')
 	page = pageHeaderP + pageLinks + page + pageFooter
 	return page
 
+
+def buildContacts(contactsData,elemList):
+	pContacts = []
+	for pContact in elemList:
+		if contactsData[pContact] != '':
+			if pContact == 'email':
+				pContacts.append('<a href="mailto:'+contactsData[pContact]+'">'+pContact+'</a>')
+			elif pContact== 'twitter':
+				pContacts.append('<a href="https://twitter.com/'+contactsData[pContact]+'">'+pContact+'</a>')
+			elif pContact== 'github':
+				pContacts.append('<a href="https://github.com/'+contactsData[pContact]+'">'+pContact+'</a>')
+			else:
+				pContacts.append('<a href="'+contactsData[pContact]+'">'+pContact+'</a>')
+	
+	return pContacts
 	
 def buildProjectPage(id,data):	
-	print id,data
+	#print id,data
+
+	page = '''
+	<div class="panel panel-default">
+		<div class="panel-heading"><b>Project: </b><a href="/projects/'''+str(id)+'''">'''+data['projectName']+'''</a><img src="'''+data['projectLogo']+'''" width="25px" height="25px" align="right"></img></div>
+		
+		<table class="table">
+			<tr>
+				<td><b>Slogan: </b>'''+data['projectSlogan']+'''</td>
+			</tr>
+			<tr>
+				<td><b>Description: </b>'''+data['projectDescription']+'''</td>
+			</tr>
+			<tr>
+				<td><b>Status: </b>'''+data['projectStatus']+'''</td>
+			</tr>
+
+			<tr>
+				<td width="70%"><b>Tags: </b>'''+', '.join(data['projectTags'])+'''</td>
+			</tr>
+
+		</table>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading"><b>Project needs</b></div>
+		<table class="table">
+	'''
+
+	for i in data['whoIsNeeded']:
+		page = page + '''
+			<tr>
+			   <td><b>'''+i+'''</b> - '''+data['whoIsNeeded'][i]+'''</td>
+			</tr>
+		
+	'''
+
+	page = page + '''
+			<tr>
+			   <td><b>You</b> - because you are a part of community</td>
+			</tr>
+		</table>
+	
+	</div>
+	<div class="panel panel-default">	
+		<div class="panel-heading"><b>Contacts</b></div>
+
+		<table class="table">
+	'''
+
+	pContacts = buildContacts(data['projectContacts'],projVarsContacts)
+
+	if len(pContacts)>0:
+		page = page + '<tr><td>Project related: '+' | '.join(pContacts)+'</td></tr>'
+	else:
+		page = page + '<tr><td>Project related: none</td></tr>'
+
+	
+	print projectData['projectMembers']
+	for pVar in projectData['projectMembers']:
+		print pVar
+		pContacts = buildContacts(data['projectMembers'][pVar],projVarsMembers)
+		page = page + '<tr><td>'+pVar+': '+' | '.join(pContacts)+'</td></tr>'
+		
+	aaa='''			<tr>
+				<td>username: <a href="mailto:username@local.domain">email</a> | <a href="http://twitter.com/username">github</a> | <a href="http://twitter.com/username">telegram</a> | <a href="http://twitter.com/username">twitter</a></td>
+			</tr>
+			<tr>
+				<td>friend: <a href="http://github.com/project">project</a></td>
+			</tr>
+	'''		
+	page = page + '''
+		</table>
+	</div>	
+	'''
+	
+	pageHeaderP = pageHeader.replace('TITLE_HERE',data['projectName'])
+	pageHeaderP = pageHeaderP.replace('PROJECTS_IS_ACTIVE','')
+	pageHeaderP = pageHeaderP.replace('IDEAS_IS_ACTIVE','')
+	pageHeaderP = pageHeaderP.replace('SUBMIT_IS_ACTIVE','')
+	pageHeaderP = pageHeaderP.replace('ABOUT_IS_ACTIVE','')
+	page = pageHeaderP + pageLinks + page + pageFooter
+	return page
+	
 	
 projectsPage = {}	
 
@@ -131,12 +252,12 @@ for i, k in enumerate(jsonData):
 	projectHash = jsonData[k][1]
 	print ' | '+str(projectId)+' : '+projectUrl
 	projectData = processProjectJson(projectUrl)
-	buildProjectPage(projectId,projectData)
+	projectPage = buildProjectPage(projectId,projectData)
+	print projectPage
 	projectsPage[projectId] = {'projectName' : projectData['projectName'], 'projectStatus' : projectData['projectStatus'], 'projectShortDescription' : projectData['projectShortDescription'], 'projectLogo' : projectData['projectLogo'],'projectTags' : projectData['projectTags']}
 	
 print '[+] Done'
 print '[~] Generating projects index page'
 projectsIndexHtml = buildProjectsPage(projectsPage)
-print projectsIndexHtml
+#print projectsIndexHtml
 print '[+] Done'
-
