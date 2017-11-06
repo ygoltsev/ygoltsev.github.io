@@ -80,12 +80,21 @@ pageFooter = '''
 </html>
 '''	
 
+def htmlEscape(str):
+   str = str.replace("&","&amp;")
+   str = str.replace("<", "&lt;")
+   str = str.replace(">", "&gt;")
+   return str
+
 def processProjectJson(pUrl):
 	projectData = getJson(pUrl)
-
+	print projectData['projectContacts']
 	for pVar in projVars:
 		try:
-			projectData[pVar] = projectData[pVar]
+			if pVar == 'projectContacts' or pVar== 'projectMembers':
+				projectData[pVar] = projectData[pVar]
+			else:
+				projectData[pVar] = htmlEscape(projectData[pVar])
 		except:
 			if pVar == 'projectContacts' or pVar== 'projectMembers':
 				projectData[pVar] = []
@@ -98,7 +107,6 @@ def processProjectJson(pUrl):
 		except:
 			projectData['projectContacts'][pVar] = ''
 
-	
 	for pVar in projectData['projectMembers']:
 		for vVal in projVarsMembers:
 			try:
@@ -146,13 +154,13 @@ def buildContacts(contactsData,elemList):
 	for pContact in elemList:
 		if contactsData[pContact] != '':
 			if pContact == 'email':
-				pContacts.append('<a href="mailto:'+contactsData[pContact]+'">'+pContact+'</a>')
+				pContacts.append('<a href="mailto:'+htmlEscape(contactsData[pContact])+'">'+pContact+'</a>')
 			elif pContact== 'twitter':
-				pContacts.append('<a href="https://twitter.com/'+contactsData[pContact]+'">'+pContact+'</a>')
+				pContacts.append('<a href="https://twitter.com/'+htmlEscape(contactsData[pContact])+'">'+pContact+'</a>')
 			elif pContact== 'github':
-				pContacts.append('<a href="https://github.com/'+contactsData[pContact]+'">'+pContact+'</a>')
+				pContacts.append('<a href="https://github.com/'+htmlEscape(contactsData[pContact])+'">'+pContact+'</a>')
 			else:
-				pContacts.append('<a href="'+contactsData[pContact]+'">'+pContact+'</a>')
+				pContacts.append('<a href="'+htmlEscape(contactsData[pContact])+'">'+pContact+'</a>')
 	
 	return pContacts
 	
@@ -219,7 +227,7 @@ def buildProjectPage(id,data):
 	for pVar in projectData['projectMembers']:
 		print pVar
 		pContacts = buildContacts(data['projectMembers'][pVar],projVarsMembers)
-		page = page + '<tr><td>'+pVar+': '+' | '.join(pContacts)+'</td></tr>'
+		page = page + '<tr><td>'+htmlEscape(pVar)+': '+' | '.join(pContacts)+'</td></tr>'
 		
 	aaa='''			<tr>
 				<td>username: <a href="mailto:username@local.domain">email</a> | <a href="http://twitter.com/username">github</a> | <a href="http://twitter.com/username">telegram</a> | <a href="http://twitter.com/username">twitter</a></td>
@@ -253,7 +261,7 @@ for i, k in enumerate(jsonData):
 	print ' | '+str(projectId)+' : '+projectUrl
 	projectData = processProjectJson(projectUrl)
 	projectPage = buildProjectPage(projectId,projectData)
-	print projectPage
+	#print projectPage
 	projectsPage[projectId] = {'projectName' : projectData['projectName'], 'projectStatus' : projectData['projectStatus'], 'projectShortDescription' : projectData['projectShortDescription'], 'projectLogo' : projectData['projectLogo'],'projectTags' : projectData['projectTags']}
 	
 print '[+] Done'
